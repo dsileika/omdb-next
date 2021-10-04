@@ -1,7 +1,14 @@
-import '../styles/globals.css'
+import React from "react";
+import "styles/globals.css";
+import Header from "components/Header";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Header />
+      <React.StrictMode>
+        <Component {...pageProps} />
+      </React.StrictMode>
+    </>
+  );
 }
-
-export default MyApp

@@ -1,0 +1,76 @@
+{
+    "Search": [
+        {
+            "Title": "The Walking Dead",
+            "Year": "2010–2022",
+            "imdbID": "tt1520211",
+            "Type": "series",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BZmU5NTcwNjktODIwMi00ZmZkLTk4ZWUtYzVjZWQ5ZTZjN2RlXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"
+        },
+        {
+            "Title": "Fear the Walking Dead",
+            "Year": "2015–",
+            "imdbID": "tt3743822",
+            "Type": "series",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BM2ZlOWVlZjAtODE4OC00NmRmLWFmNzgtNTAxYWQ5Y2M1MzA2XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Walking Dead",
+            "Year": "2012",
+            "imdbID": "tt2006890",
+            "Type": "game",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BNDA4ZDY4OTctOTlhZC00ZTk4LWJmMjEtMWEyZjc3ZWUxODgyXkEyXkFqcGdeQXVyNjgyOTExMTI@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Walking Dead: World Beyond",
+            "Year": "2020–2021",
+            "imdbID": "tt10148174",
+            "Type": "series",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BODEzZjAwOGMtMWZkZC00Nzg1LTlmNDUtNDU5NDA5YmViOTMwXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Walking Dead: Webisodes",
+            "Year": "2011–2013",
+            "imdbID": "tt2022190",
+            "Type": "series",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BNDIzOGE4NzYtNDJlNi00YjRlLWE0MDMtMjUzNDQ0NjM5ODZlXkEyXkFqcGdeQXVyMjQ1NTU3Nzg@._V1_SX300.jpg"
+        },
+        {
+            "Title": "Walking with the Dead",
+            "Year": "2015",
+            "imdbID": "tt3499458",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BMTQ5NTE5OTI2MV5BMl5BanBnXkFtZTgwNzc1NzY1NDE@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Walking Dead: The Game - Season 2",
+            "Year": "2013",
+            "imdbID": "tt3390964",
+            "Type": "game",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BZjcwOGVmODgtMWUxYS00Mjk3LTlkZDMtYjZkZDA3ZWJiYTI3XkEyXkFqcGdeQXVyNTM3NzExMDQ@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Walking Dead",
+            "Year": "1936",
+            "imdbID": "tt0028478",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BZjFiMGNlNDQtZTYzOC00YmIxLWIyZGMtY2JlMjMxZTRlOTc1XkEyXkFqcGdeQXVyMzg1ODEwNQ@@._V1_SX300.jpg"
+        },
+        {
+            "Title": "The Walking Dead: 400 Days",
+            "Year": "2013",
+            "imdbID": "tt3059776",
+            "Type": "game",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BMWNhNGUyZTEtNDkwZC00Y2NkLWFmODItNTNiOTk2OGU3M2JmXkEyXkFqcGdeQXVyNTI2NTY2MDI@._V1_SX300.jpg"
+        },
+        {
+            "Title": "Fear the Walking Dead: Flight 462",
+            "Year": "2015–2016",
+            "imdbID": "tt5095238",
+            "Type": "series",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BNWQ0YmZiNmQtOWMyNy00MTcxLTg2NGItYzkxZjE0M2VkZDVmXkEyXkFqcGdeQXVyMDM0MzU2NA@@._V1_SX300.jpg"
+        }
+    ],
+    "totalResults": "273",
+    "Response": "True"
+}
