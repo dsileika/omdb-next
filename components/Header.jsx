@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { PageTitle } from "config";
 import Box from "@mui/material/Box";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import Badge from "@mui/material/Badge";
-import SearchInput from "./SearchInput";
 import { useRouter } from "next/router";
 import { paths } from "config/paths";
+import { useAppContext } from "context/state";
 
 import Link from "next/link";
 
 export default function Header() {
   const { pathname } = useRouter();
+
+  const [favCount, setFavCount] = useState(0);
+
+  const { favoriteItems } = useAppContext();
+
+  useEffect(() => {
+    setFavCount(favoriteItems.length);
+  }, [favoriteItems]);
 
   if (pathname === paths.main) {
     return ``;
@@ -23,7 +31,7 @@ export default function Header() {
           width: "100%",
           position: `sticky`,
           top: 0,
-          zIndex: 1,
+          zIndex: 2,
         }}
       >
         <Box
@@ -43,9 +51,6 @@ export default function Header() {
               <h3>{PageTitle}</h3>
             </Box>
           </Link>
-          {/* <Box xs={{ p: 5 }}>
-            <SearchInput />
-          </Box> */}
           {pathname !== paths.watchlist && (
             <Link href={paths.watchlist} passHref>
               <Box>
@@ -56,7 +61,7 @@ export default function Header() {
                   }}
                 >
                   Watchlist
-                  <Badge color="primary" badgeContent={0} max={10}>
+                  <Badge color="primary" badgeContent={favCount} max={10}>
                     <BookmarkIcon />
                   </Badge>
                 </Box>

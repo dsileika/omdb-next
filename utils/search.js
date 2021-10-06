@@ -7,8 +7,8 @@ import { getItems } from "./localStorage";
 // const fetcher = (...args) => fetch(...args).then((res) => res.json());
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
-export async function useSearch(title) {
-  const items = await fetcher(`/api/search?s=${title}`);
+export async function useSearch(title, page = 1) {
+  const items = await fetcher(`/api/search?s=${title}&page=${page}`);
 
   // return {
   //   items: data,

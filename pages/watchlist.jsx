@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { getItems } from "utils/localStorage";
 import Items from "components/Items";
 import Box from "@mui/material/Box";
 
 export default function Watchlist() {
-  const [items, setItems] = React.useState([]);
+  const [items, setItems] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setItems(getItems());
   }, []);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import CardMedia from "@mui/material/CardMedia";
@@ -14,35 +14,9 @@ import Fade from "@mui/material/Fade";
 import { isWatchListItem } from "utils/search";
 
 export default function ItemCard(props) {
-  const {
-    Title,
-    Year,
-    Rated,
-    Released,
-    Runtime,
-    Genre,
-    Director,
-    Writer,
-    Actors,
-    Plot,
-    Language,
-    Country,
-    Awards,
-    Poster,
-    Ratings,
-    Metascore,
-    imdbRating,
-    imdbVotes,
-    imdbID,
-    Type,
-    DVD,
-    BoxOffice,
-    Production,
-    Website,
-    Response,
-  } = props;
+  const { Title, Year, Poster, imdbID } = props;
 
-  const [inWatchList, setInWatchList] = React.useState(
+  const [inWatchList, setInWatchList] = useState(
     isWatchListItem(imdbID) || false,
   );
 
@@ -51,22 +25,19 @@ export default function ItemCard(props) {
       <Box
         sx={{
           p: 1,
-          maxWidth: 250,
         }}
       >
         <Box
           sx={{
             display: `flex`,
             transition: "-moz-initial",
-            maxWidth: 500,
-            flexDirection: `column`,
+            height: "100%",
           }}
         >
           <Card>
             <Box
               sx={{
                 display: `flex`,
-                maxWidth: 400,
               }}
             >
               <Box
@@ -92,12 +63,7 @@ export default function ItemCard(props) {
                   <FavoriteIcon />
                 </IconButton>
               </Box>
-              {/* <CardMedia
-                component="img"
-                image={Poster}
-                alt={Title}
-                xs={{ width: `100%` }}
-              /> */}
+
               {Poster !== `N/A` && Poster !== null && (
                 <Image src={Poster} alt={Title} width={500} height={700} />
               )}
@@ -105,13 +71,13 @@ export default function ItemCard(props) {
                 <Image
                   src={`/popcorns.png`}
                   alt={Title}
-                  width={900}
+                  width={500}
                   height={700}
                 />
               )}
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <CardContent sx={{ flex: "1 0 auto" }}>
+            <Box sx={{ display: "flex", height: "100%" }}>
+              <CardContent sx={{ flex: "1 0 auto", width: "100%" }}>
                 <Typography component="div" variant="h5" align="center">
                   {Title}
                 </Typography>

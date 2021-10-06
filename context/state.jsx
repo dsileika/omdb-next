@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { createContext, useContext } from "react";
 import { getItems } from "utils/localStorage";
 
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
+  const [favoriteItems, setFavoriteItems] = useState(getItems() || []);
+
   let sharedState = {
-    favoriteItems: getItems(),
+    favoriteItems: favoriteItems || [],
+    setFavoriteItems: () => {
+      setFavoriteItems(getItems());
+    },
   };
 
   return (

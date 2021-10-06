@@ -14,10 +14,13 @@ _React - Next application_
 
 - [OMDb API](https://www.omdbapi.com/)
 
+## DEMO
+
+- [OMDb Next in Vercel](https://omdb-next.vercel.app/)
+
 ## TODO
 
 - Load more items
-- Watchlist total items badge
 
 ## Getting Started
 

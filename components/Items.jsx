@@ -1,31 +1,32 @@
-import React from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import ItemCard from "./ItemCard";
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { SnackBarTimeout } from "config";
+import { useAppContext } from "context/state";
 
 import { addItem, getItems, removeItem } from "utils/localStorage";
 
 import { useRouter } from "next/router";
 import { paths } from "config/paths";
 
-const Alert = React.forwardRef(function Alert(props, ref) {
+const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function Items(props) {
   const { pathname } = useRouter();
 
-  const [items, setItems] = React.useState([]);
-  const [state, setState] = React.useState({
+  const [items, setItems] = useState([]);
+  const [state, setState] = useState({
     open: false,
     vertical: "bottom",
     horizontal: "right",
     message: "",
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (pathname === paths.watchlist) {
       setItems(getItems());
     } else {
@@ -59,6 +60,8 @@ export default function Items(props) {
     });
   }
 
+  const { favoriteItems, setFavoriteItems } = useAppContext();
+
   function updatedWatchListState(buttonState, item) {
     const message =
       buttonState === true
@@ -73,6 +76,8 @@ export default function Items(props) {
       removeItem(item.imdbID);
     }
 
+    setFavoriteItems(getItems().length);
+
     if (pathname === paths.watchlist) {
       let latestItems = getItems();
       setItems(latestItems);
@@ -83,12 +88,15 @@ export default function Items(props) {
   return (
     <Box
       sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
-        width: `95%`,
-        p: 1,
-        m: 1,
+        display: "grid",
+        gridTemplateColumns: {
+          md: "repeat(3, 1fr)",
+          sm: "repeat(2,1fr)",
+          xs: "1fr",
+        },
+        width: "auto",
+        maxWidth: "lg",
+        gap: 1,
       }}
     >
       <Snackbar
@@ -106,29 +114,20 @@ export default function Items(props) {
           {message}
         </Alert>
       </Snackbar>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-          flexWrap: "wrap",
-          maxWidth: `60%`,
-        }}
-      >
-        {items.map((item, index) => {
-          let delay = 150 * index;
-          return (
-            <ItemCard
-              key={item.imdbID}
-              {...item}
-              delay={delay}
-              updatedWatchListState={(buttonState) =>
-                updatedWatchListState(buttonState, item)
-              }
-            />
-          );
-        })}
-      </Box>
+
+      {items.map((item, index) => {
+        let delay = 150 * index;
+        return (
+          <ItemCard
+            key={item.imdbID}
+            {...item}
+            delay={delay}
+            updatedWatchListState={(buttonState) =>
+              updatedWatchListState(buttonState, item)
+            }
+          />
+        );
+      })}
     </Box>
   );
 }

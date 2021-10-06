@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   }
 
   let search = await axios.get(
-    `http://www.omdbapi.com/?s=${req.query.s}&apikey=${process.env.OMDB_API_KEY}`,
+    `http://www.omdbapi.com/?s=${req.query.s}&apikey=${process.env.OMDB_API_KEY}&page=${req.query.page}`,
   );
   return res.status(200).json(search.data);
 }

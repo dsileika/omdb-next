@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
@@ -8,19 +8,18 @@ import { useRouter } from "next/router";
 import { paths } from "config/paths";
 
 export default function SearchInput(props) {
-  const [showLoading, setShowLoading] = React.useState(false);
-  const [currentValue, setCurrentValue] = React.useState(``);
+  const [currentValue, setCurrentValue] = useState(``);
 
   const router = useRouter();
 
-  React.useEffect(() => {
+  useEffect(() => {
     setCurrentValue(props.value);
   }, [props.value]);
 
   function startSearch() {
     router.push({
       pathname: paths.find,
-      query: { q: currentValue },
+      query: { q: currentValue, page: 1 },
     });
   }
 
