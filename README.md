@@ -18,10 +18,6 @@ _React - Next application_
 
 - [OMDb Next in Vercel](https://omdb-next.vercel.app/)
 
-## TODO
-
-- Load more items
-
 ## Getting Started
 
 First, install required packages:
