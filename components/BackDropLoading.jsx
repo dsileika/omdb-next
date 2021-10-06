@@ -20,10 +20,10 @@ export default function BackDropLoading() {
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
-        onClick={handleClose}
+        // onClick={handleClose}
       >
-        <Box sx={{ marginTop: 15 }}>
-          <CircularProgress color="info" />
+        <Box>
+          <CircularProgress color="warning" />
         </Box>
       </Backdrop>
     </div>

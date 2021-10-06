@@ -1,10 +1,9 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import SearchInput from "components/SearchInput";
-
 import { PageTitle } from "config";
 
-export default function Welcome() {
+export default function Home(props) {
   return (
     <>
       <Box

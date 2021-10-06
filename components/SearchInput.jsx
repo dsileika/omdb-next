@@ -3,29 +3,30 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import Box from "@mui/material/Box";
+import { useRouter } from "next/router";
+import { paths } from "config/paths";
 
-import Grid from "@mui/material/Grid";
-import BackDropLoading from "./BackDropLoading";
-
-import { useSearch } from "utils/search";
-
-export default function SearchInput() {
+export default function SearchInput(props) {
   const [showLoading, setShowLoading] = React.useState(false);
   const [currentValue, setCurrentValue] = React.useState(``);
 
-  async function fetchItems() {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { items, isLoading } = await useSearch(currentValue);
-    console.log("items: ", items);
-  }
+  const router = useRouter();
 
-  if (showLoading && currentValue && currentValue.length > 2) {
-    return <BackDropLoading />;
+  React.useEffect(() => {
+    setCurrentValue(props.value);
+  }, [props.value]);
+
+  function startSearch() {
+    router.push({
+      pathname: paths.find,
+      query: { q: currentValue },
+    });
   }
 
   return (
-    <Grid container>
-      <Grid item>
+    <Box>
+      <Box>
         <Paper
           // component="form"
           sx={{
@@ -53,27 +54,23 @@ export default function SearchInput() {
                 currentValue &&
                 currentValue.length > 2
               ) {
-                setShowLoading(true);
-                fetchItems();
+                startSearch();
               }
             }}
-            placeholder="Search OMDb"
+            placeholder={currentValue ? currentValue : "Search OMDb"}
             inputProps={{ "aria-label": "search OMDb" }}
           />
           {/* <IconButton type="submit" sx={{ p: "10px" }} aria-label="search"> */}
           <IconButton
             disabled={currentValue && currentValue.length > 2 ? false : true}
-            onClick={() => {
-              setShowLoading(true);
-              fetchItems();
-            }}
+            onClick={() => startSearch()}
             sx={{ p: "10px" }}
             aria-label="search"
           >
             <SearchIcon />
           </IconButton>
         </Paper>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 }

@@ -2,17 +2,22 @@
 
 _React - Next application_
 
-## Used technologies
+## Dependencies
 
 - [Next.js](https://nextjs.org/)
 - [React.js](https://reactjs.org/)
 - [Axios](https://axios-http.com/)
-- [SWR - React Hooks for Data Fetching](https://swr.vercel.app/)
 - [Material-UI v5](https://mui.com/)
+- [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
 
 ## Test API
 
 - [OMDb API](https://www.omdbapi.com/)
+
+## TODO
+
+- Load more items
+- Watchlist total items badge
 
 ## Getting Started
 
