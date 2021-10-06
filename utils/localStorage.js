@@ -1,21 +1,21 @@
-const itemsKey = `favoriteItems`;
+import { localStorageKey } from "utils/config";
 
-export function getItems() {
+export function getItemsFromStorage() {
   const items =
     typeof window !== "undefined"
-      ? localStorage.getItem(itemsKey) || JSON.stringify([])
+      ? localStorage.getItem(localStorageKey) || JSON.stringify([])
       : JSON.stringify([]);
   return JSON.parse(items, true);
 }
 
-export function updateItems(items) {
+function updateItems(items) {
   if (typeof window !== "undefined") {
-    localStorage.setItem(itemsKey, JSON.stringify(items));
+    localStorage.setItem(localStorageKey, JSON.stringify(items));
   }
 }
 
-export function removeItem(imdbID) {
-  const items = getItems();
+export function removeItemFromStorage(imdbID) {
+  const items = getItemsFromStorage();
   const filteredItems = items.filter((item) => {
     return item.imdbID !== imdbID;
   });
@@ -23,17 +23,11 @@ export function removeItem(imdbID) {
   updateItems(filteredItems);
 }
 
-export function addItem(newItem) {
-  const items = getItems();
+export function addItemToStorage(newItem) {
+  const items = getItemsFromStorage();
   const itemExists = items.some((item) => item.imdbID === newItem.imdbID);
   if (!itemExists) {
     let newItems = items.concat(newItem);
     updateItems(newItems);
-  }
-}
-
-export function removeItemsStorage() {
-  if (typeof window !== "undefined") {
-    localStorage.removeItem(itemsKey);
   }
 }

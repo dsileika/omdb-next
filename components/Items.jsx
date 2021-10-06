@@ -1,85 +1,54 @@
-import React, { useState, useEffect, forwardRef } from "react";
-import ItemCard from "./ItemCard";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
-import { SnackBarTimeout } from "config";
 import { useAppContext } from "context/state";
-
-import { addItem, getItems, removeItem } from "utils/localStorage";
-
+import {
+  addItemToStorage,
+  getItemsFromStorage,
+  removeItemFromStorage,
+} from "utils/localStorage";
 import { useRouter } from "next/router";
-import { paths } from "config/paths";
-
-const Alert = forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import { paths } from "utils/paths";
+import ItemCard from "./ItemCard";
+import SnackBarAlert from "./SnackBarAlert";
+import {
+  addedToWatchListMessage,
+  removedFromWatchListMessage,
+} from "utils/config";
 
 export default function Items(props) {
   const { pathname } = useRouter();
 
+  const { updateWatchListItemsCount } = useAppContext();
+
   const [items, setItems] = useState([]);
-  const [state, setState] = useState({
-    open: false,
-    vertical: "bottom",
-    horizontal: "right",
-    message: "",
-  });
+  const [message, setMessage] = useState(``);
 
   useEffect(() => {
     if (pathname === paths.watchlist) {
-      setItems(getItems());
+      setItems(getItemsFromStorage());
     } else {
       setItems(props.items);
     }
   }, [pathname, props.items]);
 
-  const { vertical, horizontal, open, message } = state;
-
-  function handleOpen() {
-    setState({ ...state, open: true });
-  }
-
-  function handleClose(event) {
-    if (event !== null) {
-      setState({ ...state, open: false });
-    }
-  }
-
-  function closeOnTimeout(event) {
-    if (event === null) {
-      setState({ ...state, open: false });
-    }
-  }
-
-  function handleMessage(message) {
-    setState({
-      ...state,
-      message: message,
-      open: true,
-    });
-  }
-
-  const { favoriteItems, setFavoriteItems } = useAppContext();
-
   function updatedWatchListState(buttonState, item) {
     const message =
       buttonState === true
-        ? `Added to watchlist! 🌟`
-        : `Removed from watchlist! 🧹`;
+        ? addedToWatchListMessage
+        : removedFromWatchListMessage;
 
-    handleMessage(message);
+    setMessage(message);
 
     if (buttonState === true) {
-      addItem(item);
+      addItemToStorage(item);
     } else {
-      removeItem(item.imdbID);
+      removeItemFromStorage(item.imdbID);
     }
 
-    setFavoriteItems(getItems().length);
+    updateWatchListItemsCount();
 
     if (pathname === paths.watchlist) {
-      let latestItems = getItems();
+      let latestItems = getItemsFromStorage();
       setItems(latestItems);
       props.totalItems(latestItems.length || 0);
     }
@@ -99,21 +68,7 @@ export default function Items(props) {
         gap: 1,
       }}
     >
-      <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        autoHideDuration={SnackBarTimeout}
-        open={open}
-        key={vertical + horizontal}
-        onClose={closeOnTimeout}
-      >
-        <Alert
-          onClose={handleClose}
-          severity="success"
-          sx={{ width: "100%", display: `flex`, alignContent: `center` }}
-        >
-          {message}
-        </Alert>
-      </Snackbar>
+      <SnackBarAlert message={message} />
 
       {items.map((item, index) => {
         let delay = 150 * index;

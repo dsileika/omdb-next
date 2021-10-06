@@ -1,14 +1,13 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import SearchInput from "components/SearchInput";
-import { PageTitle } from "config";
+import { PageTitle } from "utils/config";
 
-export default function Home(props) {
+export default function Home() {
   return (
     <>
       <Box
         sx={{
-          // background: "linear-gradient(45deg, #9013FE 15%, #50E3C2 90%)",
           backgroundImage: `url(/top_movies_bg.jpg)`,
           backgroundRepeat: `no-repeat`,
           backgroundSize: `cover`,

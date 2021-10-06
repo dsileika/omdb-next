@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { createContext, useContext } from "react";
-import { getItems } from "utils/localStorage";
+import { getItemsFromStorage } from "utils/localStorage";
 
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-  const [favoriteItems, setFavoriteItems] = useState(getItems() || []);
+  const [watchListItemsCount, setWatchListItemsCount] = useState(
+    getItemsFromStorage().length || 0,
+  );
 
   let sharedState = {
-    favoriteItems: favoriteItems || [],
-    setFavoriteItems: () => {
-      setFavoriteItems(getItems());
+    watchListItemsCount:
+      watchListItemsCount || getItemsFromStorage().length || 0,
+    updateWatchListItemsCount: () => {
+      setWatchListItemsCount(getItemsFromStorage().length || 0);
     },
   };
 

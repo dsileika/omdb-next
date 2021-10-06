@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
-import { paths } from "config/paths";
+import { paths } from "utils/paths";
 
 export default function SearchInput(props) {
   const [currentValue, setCurrentValue] = useState(``);
@@ -27,7 +27,6 @@ export default function SearchInput(props) {
     <Box>
       <Box>
         <Paper
-          // component="form"
           sx={{
             p: "2px 4px",
             display: "flex",
@@ -59,7 +58,6 @@ export default function SearchInput(props) {
             placeholder={currentValue ? currentValue : "Search OMDb"}
             inputProps={{ "aria-label": "search OMDb" }}
           />
-          {/* <IconButton type="submit" sx={{ p: "10px" }} aria-label="search"> */}
           <IconButton
             disabled={currentValue && currentValue.length > 2 ? false : true}
             onClick={() => startSearch()}

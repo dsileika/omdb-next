@@ -1,22 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export default function BackDropLoading() {
-  const [open, setOpen] = useState(true);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleToggle = () => {
-    setOpen(!open);
-  };
-
   return (
     <div>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
+        open={true}
       >
         <Box>
           <CircularProgress color="warning" />

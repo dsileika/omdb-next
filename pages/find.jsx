@@ -1,9 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
-import { paths } from "config/paths";
+import { paths } from "utils/paths";
 import BackDropLoading from "components/BackDropLoading";
-import { useSearch } from "utils/search";
-import { addItem, removeItem } from "utils/localStorage";
+import { fetchSearch } from "utils/search";
 import Items from "components/Items";
 import Box from "@mui/material/Box";
 import SearchInput from "components/SearchInput";
@@ -12,36 +11,42 @@ import Pagination from "@mui/material/Pagination";
 export default function Find() {
   const router = useRouter();
   const { query } = router;
+
   const [showLoading, setShowLoading] = useState(true);
   const [currentValue, setCurrentValue] = useState(``);
   const [items, setItems] = useState([]);
-  const [totalResults, setTotalResults] = useState(0);
-
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
+
   // OMDb API call to search
   const fetchItems = useCallback(async (searchQuery, page) => {
-    if (searchQuery) {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const itemsResponse = await useSearch(searchQuery, page);
-      setItems(itemsResponse.Search);
-      setTotalResults(itemsResponse.totalResults);
+    if (searchQuery && page) {
+      const itemsResponse = await fetchSearch(searchQuery, page);
+      if (itemsResponse) {
+        setItems(itemsResponse.Search || []);
+        const totalResults = itemsResponse.totalResults || 0;
+        if (totalResults > 0) {
+          setTotalPages(Math.ceil(totalResults / 10));
+        }
+      }
       setShowLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    if (query.q && query.q.length > 2) {
+    const currentPage = query.page || 1;
+    const currentQuery = query.q || ``;
+
+    if (currentQuery && currentQuery.length > 2) {
+      setCurrentValue(currentQuery);
+    }
+    if (currentQuery.length > 2 && currentPage) {
       setShowLoading(true);
-      setCurrentValue(query.q);
-      setTotalPages(Math.ceil(totalResults / 10));
-      const searchQuery = query.q;
-      const page = parseInt(query.page, 10) || 1;
-      fetchItems(searchQuery, page);
-      console.log(query);
+      const page = parseInt(currentPage, 10) || 1;
+      fetchItems(currentQuery, page);
       setCurrentPage(page || 1);
     }
-  }, [fetchItems, query, totalResults]);
+  }, [query.q, fetchItems, query.page]);
 
   if (showLoading) {
     return <BackDropLoading />;
@@ -61,7 +66,7 @@ export default function Find() {
           }}
         >
           <h2>Not found any match</h2>
-          <SearchInput value={query.q} />
+          <SearchInput value={currentValue} />
         </Box>
       </>
     );
@@ -85,22 +90,24 @@ export default function Find() {
           }}
         >
           <h3>Results for</h3>
-          <SearchInput value={query.q} />
+          <SearchInput value={currentValue} />
         </Box>
         <Items items={items} />
-        <Box sx={{ p: 5, display: "flex", justifyContent: "center" }}>
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={(event, page) => {
-              setCurrentPage(page);
-              router.push({
-                pathname: paths.find,
-                query: { q: currentValue, page: page },
-              });
-            }}
-          />
-        </Box>
+        {totalPages && (
+          <Box sx={{ p: 5, display: "flex", justifyContent: "center" }}>
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={(event, page) => {
+                setCurrentPage(page);
+                router.push({
+                  pathname: paths.find,
+                  query: { q: currentValue, page: page },
+                });
+              }}
+            />
+          </Box>
+        )}
       </Box>
     );
   }

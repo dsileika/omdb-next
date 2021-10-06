@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { getItems } from "utils/localStorage";
+import { getItemsFromStorage } from "utils/localStorage";
 import Items from "components/Items";
 import Box from "@mui/material/Box";
 
@@ -8,7 +7,7 @@ export default function Watchlist() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    setItems(getItems());
+    setItems(getItemsFromStorage());
   }, []);
 
   if (!items || items.length === 0) {

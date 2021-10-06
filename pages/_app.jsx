@@ -3,9 +3,9 @@ import "styles/globals.css";
 import Header from "components/Header";
 import { AppWrapper } from "context/state";
 import Head from "next/head";
-import { PageTitle } from "config";
+import { PageTitle } from "utils/config";
 
-export default function MyApp({ Component, pageProps }) {
+export default function OmdbNext({ Component, pageProps }) {
   return (
     <>
       <AppWrapper>
