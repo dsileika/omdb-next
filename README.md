@@ -23,15 +23,13 @@ _React - Next application_
 First, install required packages:
 
 ```bash
-yarn
+npm ci
 ```
 
 Second, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
